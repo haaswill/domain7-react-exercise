@@ -16,6 +16,7 @@
   "homepage": "https://github.com/haaswill/domain7-react-exercise#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "material-ui": "^0.20.0",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -30,10 +31,12 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-class-properties": "^6.13.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
     "babel-register": "^6.26.0",
     "eslint": "^4.18.1",
     "eslint-plugin-react": "^7.7.0",
@@ -43,7 +46,7 @@
     "presets": [
       "es2015",
       "react",
-      "stage-0"
+      "stage-1"
     ],
     "plugins": [
       "transform-object-rest-spread"

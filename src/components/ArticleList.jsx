@@ -1,15 +1,13 @@
 'use strict';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Article from './Article';
+import { Article } from './Article';
 import { formatDate } from '../handlers/formatter';
 
-const ArticleList = ({
-  articles
-}) => {
-  const generateList = article => {
+const ArticleList = ({ articles }) => {
+  const generateList = articles => {
     let list = [];
-    return articles.map(article, () => {
+    return articles.map(article => {
       return list.push(
         <Article
           title={article.title}

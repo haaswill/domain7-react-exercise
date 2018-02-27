@@ -1,35 +1,19 @@
 'use strict';
-import React, { Component } from 'react';
+import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { SearchForm } from './SearchForm';
-import { ArticleList } from './ArticleList';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Dashboard from './screens/Dashboard';
+import Article from './screens/Article';
 
-class App extends Component {
-  state = {
-    query: '',
-    fromDate: '',
-    toDate: '',
-    articles: []
-  }
-
-  render() {
-    const {
-      query,
-      fromDate,
-      toDate,
-      articles
-    } = this.state;
-    return (
-      <MuiThemeProvider>
-        <SearchForm
-          query={query}
-          onChangeQuery={}
-
-        />
-        <ArticleList articles={articles} />
-      </MuiThemeProvider>
-    );
-  }
-}
+const App = () => (
+  <MuiThemeProvider>
+    <Router>
+      <div>
+        <Route component={Dashboard} />
+        <Route path={`${Article}/:articleId`} component={Article} />
+      </div>
+    </Router>
+  </MuiThemeProvider>
+);
 
 export default App;

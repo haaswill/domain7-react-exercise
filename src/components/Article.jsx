@@ -1,26 +1,25 @@
 'use strict';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card, CardMedia, CardText, CardTitle } from 'material-ui/Card';
 
-const Article = ({ title, image, description, author, date }) => (
-  <div className="article">
-    <img src={image} />
-    <div className="article-details">
-      <h2 className="article-title">{title}</h2>
-      <p className="article-description">{description}</p>
-    </div>
-    <div className="article-footer">
-      <p>By {author} - {date}</p>
-    </div>
-  </div>
+const Article = ({ title, image, description, author, datetime }) => (
+  <Card style={{ margin: 5 }}>
+    <CardMedia overlay={<CardTitle title={title} subtitle={`By ${author} - Published on ${datetime}`} />}>
+      <img src={image} />
+    </CardMedia>
+    <CardText>
+      {description}
+    </CardText>
+  </Card>
 );
 
 Article.propTypes = {
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  date: PropTypes.string
+  title: PropTypes.string,
+  image: PropTypes.string,
+  description: PropTypes.string,
+  author: PropTypes.string,
+  datetime: PropTypes.string
 }
 
 export { Article };

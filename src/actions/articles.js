@@ -1,15 +1,23 @@
 'use strict';
 import { get } from '../handlers/api';
 import {
+  FETCH_ARTICLES_START,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_FAIL
 } from "./types";
+import { formatDateToISO8601 } from '../handlers/formatter';
 
-export const fetchArticles = query => async dispatch => {
+export const fetchArticles = (query, fromDate, toDate, source) => async dispatch => {
   try {
-    const { data } = await get(`everything?${query}&sortBy=popularity`);
-    dispatch({ type: FETCH_ARTICLES_SUCCESS, payload: data });
+    dispatch({ type: FETCH_ARTICLES_START });
+    let url = `everything?q=${query}`;
+    url = fromDate ? url.concat(`&from=${formatDateToISO8601(fromDate)}`) : url;
+    url = toDate ? url.concat(`&to=${formatDateToISO8601(toDate)}`) : url;
+    url = source ? url.concat(`&sources=${source}`) : url;
+    url = url.concat('&sortBy=popularity&');
+    const { data: { articles } } = await get(url);
+    dispatch({ type: FETCH_ARTICLES_SUCCESS, payload: articles });
   } catch (error) {
-    dispatch({ type: FETCH_ARTICLES_FAIL });
+    dispatch({ type: FETCH_ARTICLES_FAIL, payload: error });
   }
 }

@@ -7,10 +7,10 @@ import {
 
 export const fetchSources = () => async dispatch => {
   try {
-    const { data: { sources } } = await get('sources');
+    const { data: { sources } } = await get('sources?');
     dispatch({ type: FETCH_SOURCES_SUCCESS, payload: sources });
 
   } catch (error) {
-    dispatch({ type: FETCH_SOURCES_FAIL });
+    dispatch({ type: FETCH_SOURCES_FAIL, payload: error });
   }
 }

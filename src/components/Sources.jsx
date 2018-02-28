@@ -11,7 +11,7 @@ const Sources = ({ sources, source, onChangeSource }) => {
       list.push(
         <MenuItem
           key={source.id}
-          primaryText={source.name}
+          primaryText={`${source.name}`}
           value={source.id}
         />
       );
@@ -20,14 +20,15 @@ const Sources = ({ sources, source, onChangeSource }) => {
   }
   return (
     <SelectField
+      floatingLabelFixed
       floatingLabelText="Sources"
       onChange={onChangeSource}
       value={source}
     >
       <MenuItem
-        key="0"
+        key={0}
         primaryText="Select a source"
-        value="0"
+        value={null}
       />
       {generateOptions(sources)}
     </SelectField>
@@ -37,7 +38,7 @@ const Sources = ({ sources, source, onChangeSource }) => {
 Sources.propTypes = {
   sources: PropTypes.array.isRequired,
   onChangeSource: PropTypes.func.isRequired,
-  source: PropTypes.string.isRequired
+  source: PropTypes.any
 };
 
 export { Sources };

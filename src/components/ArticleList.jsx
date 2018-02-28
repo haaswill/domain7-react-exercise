@@ -1,34 +1,39 @@
 'use strict';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card } from 'material-ui/Card';
+import CircularProgress from 'material-ui/CircularProgress';
 import { Article } from './Article';
-import { formatDate } from '../handlers/formatter';
+import { formatDateToReadable } from '../handlers/formatter';
 
-const ArticleList = ({ articles }) => {
+const ArticleList = ({ articles, loading }) => {
   const generateList = articles => {
     let list = [];
-    return articles.map(article => {
-      return list.push(
+    articles.forEach(({ author, publishedAt, description, urlToImage, url, title }) => {
+      list.push(
         <Article
-          title={article.title}
-          image={article.urlToImage}
-          description={article.description}
-          author={article.author}
-          date={formatDate(article.date)}
+          author={author}
+          datetime={formatDateToReadable(publishedAt)}
+          description={description}
+          image={urlToImage}
+          key={url}
+          title={title}
         />
       );
     });
+    return list;
   }
 
   return (
-    <div className="articles">
-      {generateList(articles)}
-    </div>
+    <Card style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', padding: 50 }}>
+      {loading ? <CircularProgress /> : generateList(articles)}
+    </Card>
   )
 };
 
 ArticleList.propTypes = {
-  articles: PropTypes.array.isRequired
+  articles: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 export { ArticleList };

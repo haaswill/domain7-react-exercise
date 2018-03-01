@@ -18,6 +18,7 @@ const ArticleList = ({ articles, loading }) => {
           image={urlToImage}
           key={url}
           title={title}
+          url={url}
         />
       );
     });

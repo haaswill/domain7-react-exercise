@@ -21,8 +21,10 @@ const Paginate = ({ onClickPage, page, totalPages }) => {
         list.push(generateButton(i));
       }
       list.push(generateButton(page, true));
-      for (let i = page + 1; i < page + 4; i++) {
-        list.push(generateButton(i));
+      if (page + 4 <= totalPages) {
+        for (let i = page + 1; i < page + 4; i++) {
+          list.push(generateButton(i));
+        }
       }
     }
     (size > 1 && page !== totalPages) && list.push(generateButton(totalPages, page === totalPages));
@@ -33,7 +35,7 @@ const Paginate = ({ onClickPage, page, totalPages }) => {
     <CardActions style={{ justifyContent: 'center', display: 'flex' }}>
       {page > 1 && generateButton(page - 1, true, "Previous")}
       {generateButtons(totalPages, page)}
-      {totalPages > 1 && generateButton(page + 1, true, "Next")}
+      {(totalPages > 1 && page !== totalPages) && generateButton(page + 1, true, "Next")}
     </CardActions>
   )
 };

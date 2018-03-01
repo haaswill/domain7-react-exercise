@@ -23,7 +23,7 @@ class Dashboard extends Component {
     this.fetchSources();
   }
 
-  fetchArticles = (query, fromDate, toDate, source) => this.props.fetchArticles(query, fromDate, toDate, source);
+  fetchArticles = (query, fromDate, toDate, source, page) => this.props.fetchArticles(query, fromDate, toDate, source, page);
 
   fetchSources = () => this.props.fetchSources();
 
@@ -41,17 +41,24 @@ class Dashboard extends Component {
 
   handleChangeToDate = (e, toDate) => this.setState({ toDate });
 
+  handleOnClickPage = (page) => {
+    const { query, fromDate, toDate, source } = this.state;
+    this.fetchArticles(query, fromDate, toDate, source, page);
+  }
+
   render() {
     const {
-      query,
       fromDate,
+      query,
+      source,
       toDate,
-      source
     } = this.state;
     const {
       articles,
       loading,
-      sources
+      sources,
+      page,
+      totalPages
     } = this.props;
     return (
       <div>
@@ -61,13 +68,13 @@ class Dashboard extends Component {
           onChangeQuery={this.handleChangeQuery}
           onChangeSource={this.handleChangeSource}
           onChangeToDate={this.handleChangeToDate}
-          onSubmit={() => this.fetchArticles(query, fromDate, toDate, source)}
+          onSubmit={() => this.fetchArticles(query, fromDate, toDate, source, page)}
           query={query}
           source={source}
           sources={sources}
           toDate={toDate}
         />
-        {(articles.length > 0 || loading) && <ArticleList articles={articles} loading={loading} />}
+        {(articles.length > 0 || loading) && <ArticleList articles={articles} loading={loading} onClickPage={this.handleOnClickPage} page={page} totalPages={totalPages} />}
         <Snackbar
           message="Topic cannot be empty!"
           onRequestClose={() => null}
@@ -83,11 +90,13 @@ Dashboard.propTypes = {
   fetchArticles: PropTypes.func.isRequired,
   fetchSources: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  sources: PropTypes.array
+  page: PropTypes.number.isRequired,
+  sources: PropTypes.array,
+  totalPages: PropTypes.number
 };
 
-const mapStateToProps = ({ articlesReducer: { articles, loading }, sourcesReducer: { sources } }) => {
-  return { articles, loading, sources };
+const mapStateToProps = ({ articlesReducer: { articles, loading, page, totalPages }, sourcesReducer: { sources } }) => {
+  return { articles, loading, page, sources, totalPages };
 };
 
 export default withRouter(connect(mapStateToProps, {

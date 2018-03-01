@@ -28,6 +28,7 @@ const ArticleList = ({ articles, loading, onClickPage, page, totalPages }) => {
 
   return (
     <Card style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', padding: 50 }}>
+      {<Paginate onClickPage={onClickPage} page={page} totalPages={totalPages} />}
       {loading ? <CircularProgress /> : generateList(articles)}
       {<Paginate onClickPage={onClickPage} page={page} totalPages={totalPages} />}
     </Card>

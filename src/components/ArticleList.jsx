@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'material-ui/Card';
+import { Card, CardText } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import { Article } from './Article';
 import { Paginate } from './Paginate';
@@ -27,9 +27,11 @@ const ArticleList = ({ articles, loading, onClickPage, page, totalPages }) => {
   }
 
   return (
-    <Card style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', padding: 50 }}>
+    <Card>
       {<Paginate onClickPage={onClickPage} page={page} totalPages={totalPages} />}
-      {loading ? <CircularProgress /> : generateList(articles)}
+      <CardText style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', padding: 50 }}>
+        {loading ? <CircularProgress /> : generateList(articles)}
+      </CardText>
       {<Paginate onClickPage={onClickPage} page={page} totalPages={totalPages} />}
     </Card>
   )

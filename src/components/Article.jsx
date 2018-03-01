@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, CardMedia, CardText, CardTitle } from 'material-ui/Card';
 
 const Article = ({ title, image, description, author, datetime, url }) => (
-  <Card style={{ margin: 5 }}>
+  <Card style={{ margin: 10, maxWidth: 800 }}>
     <a href={url} target="_blank" style={{ textDecoration: 'none' }}>
       <CardMedia overlay={<CardTitle title={title} subtitle={`By ${author} - Published on ${datetime}`} />}>
         <img src={image} />

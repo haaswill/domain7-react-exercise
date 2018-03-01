@@ -15,7 +15,7 @@ class Dashboard extends Component {
   state = {
     query: '',
     fromDate: null,
-    toDate: null,
+    toDate: new Date(),
     source: null
   }
 
@@ -27,7 +27,13 @@ class Dashboard extends Component {
 
   fetchSources = () => this.props.fetchSources();
 
-  handleChangeFromDate = (e, fromDate) => this.setState({ fromDate });
+  handleChangeFromDate = (e, fromDate) => {
+    let toDate = this.state.toDate;
+    if (toDate < fromDate) {
+      toDate = null;
+    }
+    this.setState({ fromDate, toDate });
+  }
 
   handleChangeQuery = (e, query) => this.setState({ query });
 
